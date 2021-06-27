@@ -1,0 +1,22 @@
+---
+version: '3'
+
+services:
+  lint:
+    image: ${REPOSITORY_URL}/super-linter:v3.13.5-327
+    working_dir: /opt/app
+    volumes:
+      - .:/tmp/lint/github/super-linter
+      - .:/opt/app
+    env_file:
+      - ${ENVFILE:-.env}
+  image-test:
+    image: ${REPOSITORY_URL}/${APP_NAME}:${BUILD_VERSION}
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
+  source-test:
+    image: ${REPOSITORY_URL}/${SOURCE_APP_NAME}:${SOURCE_VERSION}
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
